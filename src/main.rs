@@ -31,6 +31,7 @@ struct World {
     light_y: f32,
     circle_y: f32,
     circle_vy: f32,
+    last_update: Instant,
 }
 
 struct SystemMonitor {
@@ -172,11 +173,16 @@ impl World {
             light_x: LIGHT_X,
             light_y: LIGHT_Y,
             circle_y: CIRCLE_Y,
-            circle_vy: 0.2,
+            circle_vy: 100.0, // Speed in pixels per second
+            last_update: Instant::now(),
         }
     }
 
     fn update(&mut self, input: &WinitInputHelper) {
+        let now = Instant::now();
+        let elapsed = now.duration_since(self.last_update).as_secs_f32();
+        self.last_update = now;
+
         // Check for mouse press inside the light circle
         if input.mouse_pressed(0) {
             if let Some((mx, my)) = input.cursor() {
@@ -202,7 +208,7 @@ impl World {
         }
 
         // Move the circle up and down
-        self.circle_y += self.circle_vy;
+        self.circle_y += self.circle_vy * elapsed;
 
         // Bounce off top/bottom
         if self.circle_y < CIRCLE_R || self.circle_y > (HEIGHT as f32 - CIRCLE_R) {
