@@ -1,0 +1,27 @@
+[package]
+name = "raytracing-rs"
+version = "0.1.0"
+edition = "2024"
+
+[features]
+optimize = ["log/release_max_level_warn"]
+default = ["optimize"]
+
+[dependencies]
+wgpu = "0.19"
+tokio = { version = "1.36", features = ["full"] }
+rayon = "1.7.0"
+env_logger = "0.10"
+error-iter = "0.4"
+log = "0.4"
+winit = "0.29"
+winit_input_helper = "0.15"
+pixels = "0.15.0"
+sysinfo = "0.30"
+
+[profile.release]
+opt-level = 3  # Maximum performance optimizations
+lto = "fat"    # Full link-time optimization (reduces function duplication)
+codegen-units = 1  # Forces the compiler to optimize across the entire binary
+panic = "abort"  # Removes unwinding, reducing overhead
+strip = true   # Remove debugging symbols (optional)
