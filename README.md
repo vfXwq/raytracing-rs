@@ -55,6 +55,5 @@ This project is licensed under the MIT License.
 ## Acknowledgements
 Special thanks to the developers of the Rust ecosystem and the [pixels](https://crates.io/crates/pixels) crate for making real-time rendering in Rust easier.
 
-##Closure
-Feel free to explore this project and contribute.
-
+## Closure
+Thanks for your time! Feel free to explore this project and use it as you need.
